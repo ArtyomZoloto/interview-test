@@ -8,5 +8,5 @@ CREATE TABLE `WEATHER_LOG` (
 COMMIT;
 
 -- 1. Check and verify above DDL query.
--- 1. Show avg temp for 2 last days
+-- 1. Show avg temp for 2 last days for cities
 -- 2. Show highest temp for every city
