@@ -65,7 +65,7 @@ class Fetcher implements Runnable {
     }
 }
 
-public class Saver {
+class Saver {
 
     void save(String time, String city, String temp, String pressure, String weather) {
         Connection conn = null;
