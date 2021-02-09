@@ -34,6 +34,11 @@ public class ForecasetLogger {
 }
 
 class Fetcher implements Runnable {
+    private String time;
+    private String temp;
+    private String city;
+    private String pressure;
+    private String weather;
 
     public void run() {
         while (true) {
@@ -50,11 +55,11 @@ class Fetcher implements Runnable {
                         .collect(Collectors.joining("\n"));
                 // log
                 System.out.println(responseString);
-                String time = LocalDateTime.now().toString();
-                String temp = StringUtils.substringBetween(responseString, "\"main\":{\"temp\":", ",\"feels_like\":");
-                String city = StringUtils.substringBetween(responseString, "\"name\":\"", "\",\"coord\"");
-                String pressure = StringUtils.substringBetween(responseString, "\"pressure\":", ",\"sea_level\"");
-                String weather = StringUtils.substringBetween(responseString, "\"main\":", "\",\"description\"").split("\"main\":\"")[1];
+                time = LocalDateTime.now().toString();
+                temp = StringUtils.substringBetween(responseString, "\"main\":{\"temp\":", ",\"feels_like\":");
+                city = StringUtils.substringBetween(responseString, "\"name\":\"", "\",\"coord\"");
+                pressure = StringUtils.substringBetween(responseString, "\"pressure\":", ",\"sea_level\"");
+                weather = StringUtils.substringBetween(responseString, "\"main\":", "\",\"description\"").split("\"main\":\"")[1];
                 Saver saver = new Saver();
                 saver.save(time, city, temp, pressure, weather);
                 Thread.sleep(10_000);
