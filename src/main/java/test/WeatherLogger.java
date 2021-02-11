@@ -3,33 +3,38 @@ package test;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
-public class ForecasetLogger {
+public class WeatherLogger {
     public static void main(String[] args) {
-        ForecasetLogger forecasetLogger = new ForecasetLogger();
-        forecasetLogger.start();
-        //log
-        System.out.println("Forecast logger started.");
+        Processor processor = new Processor();
+        processor.start();
+        System.out.println("Weather logger started.");
+    }
+}
+
+class Processor {
+    private Runnable fetcher;
+    private Thread thread;
+
+    public void start() {
+        fetcher = new Fetcher();
+        thread = new Thread(fetcher);
+        thread.run();
     }
 
-    void start() {
-        Fetcher fetcher = new Fetcher();
-        Thread thread = new Thread(fetcher);
-        thread.run();
+    public void stop() {
+        thread.interrupt();
     }
 }
 
